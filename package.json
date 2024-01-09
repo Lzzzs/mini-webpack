@@ -1,0 +1,18 @@
+{
+  "name": "mini-webpack",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "mini-webpack",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/parser": "^7.23.6",
+    "@babel/traverse": "^7.23.7",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "ejs": "^3.1.9"
+  }
+}
