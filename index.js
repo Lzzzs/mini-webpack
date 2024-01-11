@@ -4,12 +4,31 @@ import traverse from '@babel/traverse';
 import path from 'path';
 import { transformFromAst } from 'babel-core';
 import ejs from 'ejs';
+import JSONLoader from './loader/jsonLoader.js';
 
 let id = 0
 
+const WebpackConfig = {
+  module: {
+    rules: [
+      { test: /\.json$/, use: JSONLoader },
+    ],
+  },
+}
+
 function createAsset(filePath) {
-  const source = fs.readFileSync(filePath, {
+  let source = fs.readFileSync(filePath, {
     encoding: "utf-8"
+  })
+
+  WebpackConfig.module.rules.forEach(({ test, use }) => {
+    if (test.test(filePath)) {
+      if (Array.isArray(use)) {
+        use.reverse().forEach((fn) => source = fn(source))
+      } else {
+        source = use(source)
+      }
+    }
   })
 
   const ast = parser.parse(source, {
